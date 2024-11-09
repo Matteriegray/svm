@@ -2,8 +2,8 @@ import numpy as np
 
 class SVM:
 
-    def __init__(self, learning_rate=0.001, lambda_param=0.01, n_iters=1000):
-        self.lr = learning_rate
+    def __init__(self, lr=0.001, lambda_param=0.01, n_iters=1000):
+        self.lr = lr
         self.lambda_param = lambda_param
         self.n_iters = n_iters
         self.w = None
@@ -33,16 +33,16 @@ class SVM:
         return np.sign(approx)
 
 
+# Testing
 if __name__ == "__main__":
     # Imports
     from sklearn.model_selection import train_test_split
     from sklearn import datasets
     import matplotlib.pyplot as plt
 
-    X, y = datasets.make_blobs(
-        n_samples=50, n_features=2, centers=2, cluster_std=1.05, random_state=40
-    )
-    y = np.where(y == 0, -1, 1)
+    bc = datasets.load_breast_cancer()
+    X, y = bc.data, bc.target
+    X = X[:, :2]
 
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.2, random_state=123
